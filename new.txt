@@ -1,0 +1,58 @@
+-- Create Table Cat
+CREATE TABLE cat (
+    cat_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    breed VARCHAR(100),
+    owner_id INT,
+    pedigree_number VARCHAR(50),
+    is_pedigree_valid BOOLEAN
+);
+
+-- Create Table Vet
+CREATE TABLE vet (
+    vet_id SERIAL PRIMARY KEY,
+    name VARCHAR(150) NOT NULL,
+    degree VARCHAR(100),
+    higher_education_institution VARCHAR(200),
+    phone VARCHAR(30),
+    email VARCHAR(100),
+    vet_clinic VARCHAR(150),
+    certificate_number VARCHAR(50),
+    certificate_date DATE,
+    certificate_expiration_date DATE
+);
+
+-- Create Table Vet_Check
+CREATE TABLE vet_check (
+    vet_check_id SERIAL PRIMARY KEY,
+    cat_id INT REFERENCES cat(cat_id) ON DELETE CASCADE,
+    check_date DATE NOT NULL,
+    vaccination_all BOOLEAN,
+    health_notes TEXT,
+    is_healthy BOOLEAN,
+    vet_id INT REFERENCES vet(vet_id) ON DELETE SET NULL
+);
+
+-- Insert Table Cat
+INSERT INTO cat (name, breed, owner_id, pedigree_number, is_pedigree_valid) VALUES
+('Мурчик', 'Шотландська висловуха', 1, 'PED-1001', TRUE),
+('Барсік', 'Мейн-кун', 2, 'PED-1002', TRUE),
+('Рижик', 'Домашня звичайна', 3, NULL, FALSE),
+('Луна', 'Сіамська', 4, 'PED-1003', TRUE),
+('Сніжок', 'Перська', 5, NULL, FALSE);
+
+-- Insert Table Vet
+INSERT INTO vet (name, degree, higher_education_institution, phone, email, vet_clinic, certificate_number, certificate_date, certificate_expiration_date) VALUES
+('Іван Петренко', 'Кандидат ветеринарних наук', 'НУБіП України', '+380501112233', 'petrenko@vet.ua', 'Айболить', 'CERT-001', '2020-05-12', '2025-05-12'),
+('Олена Коваленко', 'Доктор ветеринарних наук', 'ЛНУ ветеринарної медицини', '+380672223344', 'kovalenko@vet.ua', 'Зоовет', 'CERT-002', '2018-09-20', '2028-09-20'),
+('Андрій Шевченко', 'Спеціаліст', 'БНАУ', '+380933334455', 'shevchenko@vet.ua', 'Друг', 'CERT-003', '2021-03-15', '2026-03-15'),
+('Марія Мельник', 'Кандидат ветеринарних наук', 'ХДАВУ', '+380994445566', 'melnyk@vet.ua', 'Лапа', 'CERT-004', '2019-11-10', '2024-11-10'),
+('Павло Бондар', 'Спеціаліст', 'ОДАУ', '+380635556677', 'bondar@vet.ua', 'Кіт і Пес', 'CERT-005', '2022-01-25', '2027-01-25');
+
+-- Insert Table Vet_Check
+INSERT INTO vet_check (cat_id, check_date, vaccination_all, health_notes, is_healthy, vet_id) VALUES
+(1, '2026-01-10', TRUE, 'Всі щеплення зроблені, стан відмінний.', TRUE, 1),
+(2, '2026-02-15', FALSE, 'Потребує повторної вакцинації від сказу.', FALSE, 2),
+(3, '2026-03-01', TRUE, 'Здоровий, активний.', TRUE, 3),
+(4, '2026-03-12', TRUE, 'Проведено плановий огляд, вуха чисті.', TRUE, 4),
+(5, '2026-04-05', FALSE, 'Виявлено легке подразнення очей, призначено краплі.', FALSE, 5);

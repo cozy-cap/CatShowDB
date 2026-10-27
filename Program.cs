@@ -1,20 +1,16 @@
-﻿using Npgsql.EntityFrameworkCore.PostgreSQL;
+namespace CatShowApp;
 
-namespace CatShowDB
+static class Program
 {
-    class Program
+    /// <summary>
+    ///  The main entry point for the application.
+    /// </summary>
+    [STAThread]
+    static void Main()
     {
-        static void Main(string[] args)
-        {
-            // DB info
-            ip = "192.168.1.105";
-            port = "5432";
-            db_name = "CatShowDB";
-            username = "postgres";
-            password = "Cozy_Cap2602:D";
-            
-            // Connection string
-            connetion = $"Host={ip};Port={port};Database={db_name};Username={username};Password={password};";
-        }
-    }
+        // To customize application configuration such as set high DPI settings or default font,
+        // see https://aka.ms/applicationconfiguration.
+        ApplicationConfiguration.Initialize();
+        Application.Run(new Form1());
+    }    
 }
