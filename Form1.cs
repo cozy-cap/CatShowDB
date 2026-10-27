@@ -1,19 +1,27 @@
 using System.Data;
 using Npgsql;
+using Microsoft.Extensions.Configuration;
 
 namespace CatShowApp
 {
     public partial class Form1 : Form
     {
-        private string connectionString = "Host=192.168.1.105;Port=5432;Database=catshowdb;Username=postgres;Password=Cozy_Cap2602:D";
-
         private readonly DataGridView dgvCats = new();
         private readonly DataGridView dgvVets = new();
         private readonly DataGridView dgvChecks = new();
         private readonly TabControl tabControl = new();
 
+        private readonly string connectionString;
+
         public Form1()
         {
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(AppContext.BaseDirectory)
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .Build();
+
+            connectionString = configuration.GetConnectionString("DefaultConnection");
+
             InitializeComponentCustom();
             LoadData();
         }
