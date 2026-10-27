@@ -11,7 +11,7 @@ namespace CatShowApp
         private readonly DataGridView dgvChecks = new();
         private readonly TabControl tabControl = new();
 
-        private readonly string connectionString;
+        private readonly string connectionString = string.Empty;
 
         public Form1()
         {
@@ -34,17 +34,17 @@ namespace CatShowApp
             tabControl.Dock = DockStyle.Fill;
 
             // Вкладка "Коти"
-            TabPage tabCats = new TabPage("Коти (Cat)");
+            TabPage tabCats = new("Коти");
             ConfigureDataGridView(dgvCats);
             tabCats.Controls.Add(dgvCats);
 
             // Вкладка "Ветеринари"
-            TabPage tabVets = new TabPage("Ветеринари (Vet)");
+            TabPage tabVets = new("Ветеринари");
             ConfigureDataGridView(dgvVets);
             tabVets.Controls.Add(dgvVets);
 
             // Вкладка "Огляди"
-            TabPage tabChecks = new TabPage("Огляди (Vet_Check)");
+            TabPage tabChecks = new("Огляди");
             ConfigureDataGridView(dgvChecks);
             tabChecks.Controls.Add(dgvChecks);
 
